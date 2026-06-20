@@ -25,6 +25,8 @@ This lab focuses on commonly used sensor devices and electronic components used 
 
 ESP32 is a microcontroller with built in WiFi and Bluetooth used as the main controller in IoT projects.
 
+![ESP32](Images/.png)
+
 **Applications**
 
 * Smart home automation
@@ -39,6 +41,8 @@ ESP32 is a microcontroller with built in WiFi and Bluetooth used as the main con
 **Example Device:** MB-102 Breadboard
 
 A breadboard is used for building circuits without soldering.
+
+![BreadBoard](Images/Breadboard.png)
 
 **Applications**
 
