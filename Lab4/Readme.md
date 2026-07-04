@@ -9,6 +9,7 @@
 
 ---
 
+
 ## Introduction
 
 Internet of Things (IoT) systems connect physical devices to the internet so they can collect and exchange data. Sensors are the main input devices in IoT systems. They detect changes in the environment and send signals to microcontrollers like ESP32 or Arduino for processing.
