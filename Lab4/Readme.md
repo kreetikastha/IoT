@@ -79,7 +79,7 @@ Used to make connections between components on a breadboard.
 Measures temperature and humidity levels in the environment.
 
 <div align="center">
-  <img src="attachments/Temperature and Humidity Sensor.jpeg" alt="DHT11 Sensor" width="400" />
+  <img src="attachments/ Temperature and Humidity Sensor.jpeg" alt="DHT11 Sensor" width="400" />
 </div>
 
 **Applications:**
