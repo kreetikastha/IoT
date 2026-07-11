@@ -53,8 +53,6 @@ Cloud hosting allows applications to be accessed from anywhere using the public 
 <img src="attachments/1.png" width="900">
 </div>
 
-**Figure 1:** AWS EC2 Instance running successfully.
-
 ---
 
 # Environment Setup
@@ -88,8 +86,6 @@ uvicorn app:app --host 0.0.0.0 --port 80
 <div align="center">
 <img src="attachments/2.png" width="900">
 </div>
-
-**Figure 2:** Installing FastAPI, creating virtual environment, and running Uvicorn.
 
 ---
 
@@ -305,7 +301,6 @@ uvicorn app:app --host 0.0.0.0 --port 80
 <img src="attachments/3.png" width="900">
 </div>
 
-**Figure 3:** Pomodoro Timer webpage hosted on AWS EC2.
 
 ---
 

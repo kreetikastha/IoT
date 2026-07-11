@@ -169,7 +169,6 @@ def get_weather():
 <img src="attachments/5.png" width="700">
 </p>
 
-**Figure 1:** Swagger UI generated automatically by FastAPI.
 
 ---
 
@@ -181,7 +180,6 @@ def get_weather():
 <img src="attachments/3.png" width="700">
 </p>
 
-**Figure 2:** Sending weather data through Swagger UI.
 
 ---
 
@@ -200,7 +198,6 @@ curl -X POST "http://100.24.66.82/weather" \
 <img src="attachments/2.png" width="700">
 </p>
 
-**Figure 3:** POST request using curl.
 
 ---
 
@@ -210,7 +207,6 @@ curl -X POST "http://100.24.66.82/weather" \
 <img src="attachments/1.png" width="700">
 </p>
 
-**Figure 4:** Retrieving stored weather records.
 
 ---
 

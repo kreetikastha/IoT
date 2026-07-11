@@ -43,22 +43,20 @@ Filtering allows users to select a specific date and time range for analysis. Th
 
 ## Output
 
-### Figure 1: AWS EC2 Instance Details
 ![AWS EC2 Instance Summary](attachments/1.png)
 
-### Figure 2: Uvicorn Server Running
+
 ![Terminal - Server Startup](attachments/2.png)
 
-### Figure 3: Dashboard Homepage
+
 ![IoT Weather Monitoring Dashboard](attachments/3.png)
 
-### Figure 4: Temperature & Humidity Trends
+
 ![Temperature and Humidity Trend Graphs](attachments/4.png)
 
-### Figure 5: Sensor Data Table
 ![Sensor Data Table](attachments/5.png)
 
-### Figure 6: Weather API JSON Response
+
 ![/weather Endpoint Response](attachments/6.png)
 
 ## Result
