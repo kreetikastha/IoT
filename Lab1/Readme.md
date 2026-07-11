@@ -33,7 +33,7 @@ Uvicorn is an ASGI server used to run FastAPI applications.
 
 ## Cloud Hosting
 
-Cloud hosting allows applications to be accessed from anywhere using the public IP address of the server.
+Cloud hosting allows applications to be accessed from anywhere using the public IP address of the server..
 
 ---
 
