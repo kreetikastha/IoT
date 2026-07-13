@@ -11,4 +11,4 @@
 | 3      | Visualizing IoT Sensor Data Using Interactive Dashboards                   |Familirization with Data Visualization in IoT      |
 | 4      | Sensor Devices Used in IoT Projects                   |Familirization with Sensor Devices and Hardware      |
 | 5      |Integrating ESP32 Sensor Data with Cloud-Based REST API and Dashboard Visualization|End-to-end IoT integration using ESP32, REST API, cloud database, and dashboard|
-|       |                   |     |
+|   6    |    FishTalk: An IoT-Based Mini Aquarium System                |   Case Study  |
