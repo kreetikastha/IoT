@@ -1,0 +1,361 @@
+
+```<!DOCTYPE html>
+<html>
+<head>
+    <title>IoT Weather Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container{
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1,h2,h3{
+            text-align: center;
+        }
+
+        .cards{
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card{
+            display: inline-block;
+            width: 220px;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .card h2{
+            color: #0077cc;
+        }
+
+        .filters{
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .filters input{
+            padding: 8px;
+            margin: 5px;
+        }
+
+        .filters button{
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background: #0077cc;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .filters button:hover{
+            background: #005fa3;
+        }
+
+        .chart-container{
+            margin: 30px auto;
+        }
+
+        canvas{
+            max-height: 350px;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,td{
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th{
+            background-color: #0077cc;
+            color: white;
+        }
+
+        tr:nth-child(even){
+            background-color: #f8f8f8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>IoT Weather Monitoring Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Current Temperature</h3>
+            <h2 id="currentTemp">--</h2>
+        </div>
+
+        <div class="card">
+            <h3>Current Humidity</h3>
+            <h2 id="currentHum">--</h2>
+        </div>
+
+        <div class="card">
+            <h3>Average Temperature</h3>
+            <h2 id="avgTemp">--</h2>
+        </div>
+
+        <div class="card">
+            <h3>Average Humidity</h3>
+            <h2 id="avgHum">--</h2>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <h2>Filter Sensor Data</h2>
+
+    <div class="filters">
+
+        <label>From:</label>
+
+        <input
+            type="datetime-local"
+            id="startDate"
+        >
+
+        <label>To:</label>
+
+        <input
+            type="datetime-local"
+            id="endDate"
+        >
+
+        <button onclick="filterData()">
+            Apply Filter
+        </button>
+
+        <button onclick="loadData()">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="chart-container">
+
+        <h2>Temperature Trend</h2>
+
+        <canvas id="tempChart"></canvas>
+
+    </div>
+
+    <div class="chart-container">
+
+        <h2>Humidity Trend</h2>
+
+        <canvas id="humChart"></canvas>
+
+    </div>
+
+    <h2>Sensor Data Table</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Temperature (째C)</th>
+                <th>Humidity (%)</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+let tempChart;
+let humChart;
+
+async function loadData(){
+
+    const response =
+        await fetch("/weather");
+
+    const data =
+        await response.json();
+
+    renderDashboard(data);
+}
+
+async function filterData(){
+
+    let start =
+        document.getElementById("startDate").value;
+
+    let end =
+        document.getElementById("endDate").value;
+
+    if(!start || !end){
+        alert("Please select both dates.");
+        return;
+    }
+
+    start = start.replace("T"," ");
+    end = end.replace("T"," ");
+
+    const response =
+        await fetch(
+            `/weather?start=${start}&end=${end}`
+        );
+
+    const data =
+        await response.json();
+
+    renderDashboard(data);
+}
+
+function renderDashboard(data){
+
+    if(data.length === 0){
+        alert("No records found.");
+        return;
+    }
+
+    const labels =
+        data.map(item => item.timestamp);
+
+    const temperatures =
+        data.map(item => item.temperature);
+
+    const humidity =
+        data.map(item => item.humidity);
+
+    const latest =
+        data[data.length - 1];
+
+    document.getElementById("currentTemp")
+        .innerHTML =
+        latest.temperature + " 째C";
+
+    document.getElementById("currentHum")
+        .innerHTML =
+        latest.humidity + " %";
+
+    const avgTemp =
+        temperatures.reduce((a,b)=>a+b,0)
+        / temperatures.length;
+
+    const avgHum =
+        humidity.reduce((a,b)=>a+b,0)
+        / humidity.length;
+
+    document.getElementById("avgTemp")
+        .innerHTML =
+        avgTemp.toFixed(1) + " 째C";
+
+    document.getElementById("avgHum")
+        .innerHTML =
+        avgHum.toFixed(1) + " %";
+
+    if(tempChart){
+        tempChart.destroy();
+    }
+
+    if(humChart){
+        humChart.destroy();
+    }
+
+    tempChart = new Chart(
+        document.getElementById("tempChart"),
+        {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Temperature (째C)",
+                    data: temperatures,
+                    borderColor: "red",
+                    backgroundColor: "rgba(255,0,0,0.1)",
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+    humChart = new Chart(
+        document.getElementById("humChart"),
+        {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Humidity (%)",
+                    data: humidity,
+                    borderColor: "blue",
+                    backgroundColor: "rgba(0,0,255,0.1)",
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+    let rows = "";
+
+    data.forEach(item => {
+
+        rows += `
+        <tr>
+            <td>${item.timestamp}</td>
+            <td>${item.temperature}</td>
+            <td>${item.humidity}</td>
+        </tr>
+        `;
+    });
+
+    document.getElementById("tableBody")
+        .innerHTML = rows;
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>```
